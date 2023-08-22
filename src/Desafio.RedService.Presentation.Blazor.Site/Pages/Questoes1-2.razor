@@ -1,0 +1,68 @@
+﻿@page "/"
+@using System.Text;
+@using static System.Runtime.InteropServices.JavaScript.JSType;
+
+<PageTitle>Questões 1-2</PageTitle>
+<h1>Questões 1 E 2</h1>
+
+<label class="label mt-xl-5" style="display:flex;justify-content:center">Digite um número</label>
+
+<div class="field mt-xl-5" style="display:flex;justify-content:center;">
+    <div class="control">
+        <input @bind-value="numero" style="width:290px" class="input" />
+    </div>
+    <div class="field is-right" style="display:flex;justify-content:end;">
+        <button @onclick="AdicionarNumerosALista" class="button is-danger">Adicionar</button>
+    </div>
+</div>
+
+<div class="field mt-xl-5" style="display:flex;justify-content:center">
+    <div class="control">
+        @if (numeros.Any())
+        {
+            <pre style="width:380px; height:300px; white-space: pre-wrap;">@string.Join(Environment.NewLine, numeros)</pre>
+
+            @if (arquivoSalvo)
+            {
+                <p class="has-text-success ml-3">Lista salva com sucesso!</p>
+            }
+            <div class="buttons mt-3" style="display: flex; justify-content: center;">
+                <button @onclick="SalvarLista" class="button is-primary">Salvar Lista</button>
+                @if (arquivoSalvo)
+                {
+                    <a href="@arquivoDownload" download="lista.txt" class="button is-success ml-3">Baixar Lista</a>
+                }
+            </div>
+        }
+        else
+        {
+            <p>Nenhum número na lista.</p>
+        }
+    </div>
+</div>
+
+@code {
+    int numero;
+    List<int> numeros = new List<int>();
+    bool arquivoSalvo = false;
+    string arquivoDownload = "";
+
+    public void AdicionarNumerosALista()
+    {
+        numeros.Add(numero);
+        numeros.Sort();
+        numero = 0; 
+        arquivoSalvo = false; 
+    }
+
+    public void SalvarLista()
+    {
+        string conteudo = string.Join(Environment.NewLine, numeros);
+        var bytes = Encoding.UTF8.GetBytes(conteudo);
+
+        
+        arquivoDownload = $"data:text/plain;charset=utf-8;base64,{Convert.ToBase64String(bytes)}";
+        arquivoSalvo = true;
+        
+    }
+}

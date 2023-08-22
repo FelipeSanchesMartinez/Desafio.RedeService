@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Desafio Rede Service", "Desafio Rede Service", "{2FC62920-7FC5-4251-BC24-E1B45D652F06}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Desafio.RedService.Presentation.Blazor.Site", "src\Desafio.RedService.Presentation.Blazor.Site\Desafio.RedService.Presentation.Blazor.Site.csproj", "{D36B489E-3134-4875-BE6E-215272F5EFAB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D36B489E-3134-4875-BE6E-215272F5EFAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D36B489E-3134-4875-BE6E-215272F5EFAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D36B489E-3134-4875-BE6E-215272F5EFAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D36B489E-3134-4875-BE6E-215272F5EFAB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D36B489E-3134-4875-BE6E-215272F5EFAB} = {2FC62920-7FC5-4251-BC24-E1B45D652F06}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6D0623E7-79DD-408F-ACB6-77460C8AD666}
+	EndGlobalSection
+EndGlobal

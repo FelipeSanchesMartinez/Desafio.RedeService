@@ -1,0 +1,77 @@
+﻿@page "/q7"
+@using Desafio.RedService.Presentation.Blazor.Site.Entities
+@using System.Text.Json;
+@inject HttpClient Http
+
+<PageTitle>Questão 7</PageTitle>
+<h1>Questão 7</h1>
+
+<div class="mb-3">
+    <button class="button is-primary" @onclick="CarregarDados">Carregar Dados</button>
+</div>
+
+@if (carregando)
+{
+    <p>Carregando dados...</p>
+}
+else if (objBanco != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Nome</th>
+                <th>Nome Completo</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var banco in bancos)
+            {
+                <tr>
+                    <th>@banco.Code</th>
+                    <th>@banco.Name</th>
+                    <th>@banco.FullName</th>
+
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<object> objBanco;
+
+    private List<Banco> bancos;
+    private bool carregando = false;
+
+    private async Task CarregarDados()
+    {
+        try
+        {
+            carregando = true;
+            objBanco = await Http.GetFromJsonAsync<List<object>>("https://brasilapi.com.br/api/banks/v1");
+
+            bancos = new List<Banco>();
+            foreach (var item in objBanco)
+            {
+                if (item is JsonElement jsonElement)
+                {
+                    bancos.Add(new Banco
+                        {
+                            Code = jsonElement.GetProperty("code").GetInt32(),
+                            Name = jsonElement.GetProperty("name").GetString(),
+                            FullName = jsonElement.GetProperty("fullName").GetString()
+                        });
+                }
+            }
+
+            carregando = false;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erro ao buscar dados da API: {ex.Message}");
+            carregando = false;
+        }
+    }
+}
