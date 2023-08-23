@@ -14,7 +14,7 @@
 {
     <p>Carregando dados...</p>
 }
-else if (objBanco != null)
+else if (bancos != null)
 {
     <table class="table">
         <thead>
@@ -40,7 +40,7 @@ else if (objBanco != null)
 }
 
 @code {
-    private List<object> objBanco;
+
 
     private List<Banco> bancos;
     private bool carregando = false;
@@ -50,22 +50,7 @@ else if (objBanco != null)
         try
         {
             carregando = true;
-            objBanco = await Http.GetFromJsonAsync<List<object>>("https://brasilapi.com.br/api/banks/v1");
-
-            bancos = new List<Banco>();
-            foreach (var item in objBanco)
-            {
-                if (item is JsonElement jsonElement)
-                {
-                    bancos.Add(new Banco
-                        {
-                            Code = jsonElement.GetProperty("code").GetInt32(),
-                            Name = jsonElement.GetProperty("name").GetString(),
-                            FullName = jsonElement.GetProperty("fullName").GetString()
-                        });
-                }
-            }
-
+            bancos = await Http.GetFromJsonAsync<List<Banco>>("https://brasilapi.com.br/api/banks/v1");
             carregando = false;
         }
         catch (Exception ex)
